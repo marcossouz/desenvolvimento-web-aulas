@@ -1,0 +1,86 @@
+<!Doctype html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+	<title>Formulario</title>
+	<link rel="stylesheet" type="text/css" href="#">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+  	<script type="text/javascript">
+  		function verificaSenha(){
+  			var s1 = document.getElementById("senha").value;
+  			var s2 = document.getElementById('confirmarsenha').value;
+  			if(s1 != s2){
+  				var msg = document.getElementById("mensagem");
+  				msg.innerHTML = "As senhas não conferem";
+  				msg.className = "alert alert-danger";
+
+  				return false;
+  			}
+  			return true;
+  		}
+
+  		function reset(){
+  			var msg = document.getElementById("mensagem");
+  			msg.innerHTML = "";
+  		}
+
+  		function validar(){
+  			var campo1 = document.getElementById("senha");
+  			var campo2 = document.getElementById("confirmarsenha");
+  			if (campo1.value != campo2.value) {
+  				campo2.setCustomValidity("As senhas não conferem");
+  				campo2.validity = false;
+  			} else {
+  				campo2.setCustomValidity("");
+  				campo2.validity = true;
+  			}
+  		}
+
+  	</script>
+	<form action="receberdados.html" method="get" onsubmit="return verificaSenha()">
+		
+		<h2 align="center">Cadastro de usuário</h2>
+		<div class="container" style="width: 40%">
+		
+		<br>
+		
+		<div id="mensagem"></div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Nome:</span>
+			</div>
+			<input type="text" class="form-control" required placeholder="Digite seu nome completo aqui" name="nome" id="nome" aria-describedby="basic-addon1">
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Idade:</span>
+			</div>
+			<input type="number" class="form-control" placeholder="Qual é a sua idade?" name="idade" id="idade" aria-describedby="basic-addon1">
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">E-mail:</span>
+			</div>
+			<input type="email" class="form-control" placeholder="Digite seu email" name="email" id="email" aria-describedby="basic-addon1">
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Senha:</span>
+			</div>
+			<input type="password" class="form-control" placeholder="Digite sua senha" name="senha" id="senha" aria-describedby="basic-addon1" onchange="validar()">
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="basic-addon1">Confirmar Senha:</span>
+			</div>
+			<input type="password" class="form-control" placeholder="confirme sua senha" name="confirmarsenha" id="confirmarsenha" aria-describedby="basic-addon1"  onchange="validar()">
+		</div>
+
+		<button type="submit" class="btn btn-primary">Enviar Dados</button>
+		<button type="reset" class="btn btn-primary">Limpar Dados</button>
+	</form>
+	</div>
+  </body>
+</html>

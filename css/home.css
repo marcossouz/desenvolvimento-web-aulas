@@ -1,0 +1,33 @@
+figure {
+  float: left;
+  width: 356px;
+  height: 250px;
+  text-align: center;
+  font-style: italic;
+  font-size: smaller;
+  text-indent: 0;
+  border: thin silver solid;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+.imgAulas {
+	width: 330px;
+	height: 200px;
+}
+
+.container {
+	margin-top: 50px;
+}
+
+#titulo1 {
+	text-align: center;
+}
+
+#subtitulo1 {
+	text-align: center;
+}
+
+.card-img {
+  height: 150px;
+}
