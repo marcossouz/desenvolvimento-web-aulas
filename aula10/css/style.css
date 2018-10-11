@@ -1,0 +1,25 @@
+.test {
+	background-color: #c0c0c0;
+	padding: 2px;
+	border: solid 1px;
+}
+
+.img-fluid {
+
+	width: 100%;
+}
+.titulo1 {
+	margin-top: 50px;
+}
+
+
+
+.figure {
+	width: 50%;
+	border: solid 1px;
+	padding: 15px;
+}
+
+.figure-img {
+	width: 50%;
+}
