@@ -1,8 +1,7 @@
-var express = require('express')
-var app = express()
+module.exports = function(app){
 
 // SHOW LIST OF USERS
-app.get('/', function(req, res, next) {
+app.get('/users', function(req, res, next) {
 	req.getConnection(function(error, conn) {
 		conn.query('SELECT * FROM users ORDER BY id DESC',function(err, rows, fields) {
 			//if(err) throw err
@@ -24,7 +23,7 @@ app.get('/', function(req, res, next) {
 })
 
 // SHOW ADD USER FORM
-app.get('/add', function(req, res, next){	
+app.get('/users/add', function(req, res, next){	
 	// render to views/user/add.ejs
 	res.render('user/add', {
 		title: 'Add New User',
@@ -35,31 +34,21 @@ app.get('/add', function(req, res, next){
 })
 
 // ADD NEW USER POST ACTION
-app.post('/add', function(req, res, next){	
-	req.assert('name', 'Name is required').notEmpty()           //Validate name
+app.post('/users/add', function(req, res, next){	
+    req.assert('name', 'Name is required').notEmpty()           //Validate name
 	req.assert('age', 'Age is required').notEmpty()             //Validate age
     req.assert('email', 'A valid email is required').isEmail()  //Validate email
 
     var errors = req.validationErrors()
-    
-    if( !errors ) {   //No errors were found.  Passed Validation!
-		
-		/********************************************
-		 * Express-validator module
-		 
-		req.body.comment = 'a <span>comment</span>';
-		req.body.username = '   a user    ';
-
-		req.sanitize('comment').escape(); // returns 'a &lt;span&gt;comment&lt;/span&gt;'
-		req.sanitize('username').trim(); // returns 'a user'
-		********************************************/
+ 
+   if( !errors ) {  
 		var user = {
 			name: req.sanitize('name').escape().trim(),
 			age: req.sanitize('age').escape().trim(),
 			email: req.sanitize('email').escape().trim()
-		}
+	}
 		
-		req.getConnection(function(error, conn) {
+	      req.getConnection(function(error, conn) {
 			conn.query('INSERT INTO users SET ?', user, function(err, result) {
 				//if(err) throw err
 				if (err) {
@@ -107,7 +96,7 @@ app.post('/add', function(req, res, next){
 })
 
 // SHOW EDIT USER FORM
-app.get('/edit/(:id)', function(req, res, next){
+app.get('/users/edit/(:id)', function(req, res, next){
 	req.getConnection(function(error, conn) {
 		conn.query('SELECT * FROM users WHERE id = ' + req.params.id, function(err, rows, fields) {
 			if(err) throw err
@@ -133,7 +122,7 @@ app.get('/edit/(:id)', function(req, res, next){
 })
 
 // EDIT USER POST ACTION
-app.put('/edit/(:id)', function(req, res, next) {
+app.put('/users/edit/(:id)', function(req, res, next) {
 	req.assert('name', 'Name is required').notEmpty()           //Validate name
 	req.assert('age', 'Age is required').notEmpty()             //Validate age
     req.assert('email', 'A valid email is required').isEmail()  //Validate email
@@ -208,7 +197,7 @@ app.put('/edit/(:id)', function(req, res, next) {
 })
 
 // DELETE USER
-app.delete('/delete/(:id)', function(req, res, next) {
+app.delete('/users/delete/(:id)', function(req, res, next) {
 	var user = { id: req.params.id }
 	
 	req.getConnection(function(error, conn) {
@@ -227,4 +216,5 @@ app.delete('/delete/(:id)', function(req, res, next) {
 	})
 })
 
-module.exports = app
+
+}
